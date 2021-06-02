@@ -1,12 +1,18 @@
-import {TAPIResponse, TLeaflet} from "../types/leaflets.types";
+import {TAPIResponse, TLeaflet, TQueryParams} from "../types/leaflets.types";
 import {TFiltersInfo} from "../types/filters.types";
+import {TSortArray} from "../types/sorting.types";
 
 
-async function getData(filtersInfo?: TFiltersInfo): Promise<TAPIResponse> {
+async function getData(filtersInfo?: TFiltersInfo, sortArray?: TSortArray): Promise<TAPIResponse> {
   const url = new URL('https://pq-leaflets.herokuapp.com/api/leaflets/filter');
-  if (filtersInfo) {
-    url.search = new URLSearchParams(filtersInfo).toString();
+  let queryParams: TQueryParams = {};
+  if (sortArray) {
+    queryParams.sort = sortArray.join(',');
   }
+  if (filtersInfo) {
+    queryParams = {...queryParams, ...filtersInfo};
+  }
+  url.search = new URLSearchParams(queryParams).toString();
   console.log(url.toString())
   const response = await fetch(url.toString());
   if (response.ok) {
@@ -17,8 +23,8 @@ async function getData(filtersInfo?: TFiltersInfo): Promise<TAPIResponse> {
   }
 }
 
-async function getLeaflets(filtersInfo?: TFiltersInfo):  Promise<TLeaflet[]> {
-  const jsonValue = await getData(filtersInfo);
+async function getLeaflets(filtersInfo?: TFiltersInfo, sortArray?: TSortArray):  Promise<TLeaflet[]> {
+  const jsonValue = await getData(filtersInfo, sortArray);
   return jsonValue.data.leaflets;
 }
 

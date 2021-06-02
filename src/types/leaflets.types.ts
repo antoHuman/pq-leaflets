@@ -1,3 +1,5 @@
+import {TFiltersInfo} from "./filters.types";
+
 export type TQuery = {
   offset: number;
   limit: number;
@@ -36,4 +38,8 @@ export type TData = {
 export type TAPIResponse = {
   data: TData;
   error: boolean;
+}
+
+export type TQueryParams = Partial<TFiltersInfo> & {
+  sort?: string;
 }
