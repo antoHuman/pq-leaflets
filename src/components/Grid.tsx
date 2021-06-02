@@ -2,6 +2,7 @@ import {FC, useEffect, useState} from "react";
 import {getLeaflets} from "../services/leaflets";
 import {TLeaflet} from "../types/leaflets.types";
 import Leaflet from "./Leaflet";
+import {Container, Row} from "react-bootstrap";
 
 const Grid: FC = () => {
   const [leaflets, setLeaflets] = useState<TLeaflet[]>([]);
@@ -14,7 +15,11 @@ const Grid: FC = () => {
   console.log(leaflets);
   return (
     <div className="grid">
-      {leaflets.map((leaflet)=> <Leaflet key={leaflet.id} leaflet={leaflet}/>)}
+      <Container fluid>
+        <Row>
+          {leaflets.map((leaflet)=> <Leaflet key={leaflet.id} leaflet={leaflet}/>)}
+        </Row>
+      </Container>
     </div>
   )
 }

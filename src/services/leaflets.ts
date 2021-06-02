@@ -1,7 +1,7 @@
-import {TAPIResponse} from "../types/leaflets.types";
+import {TAPIResponse, TLeaflet} from "../types/leaflets.types";
 
 
-async function getData() {
+async function getData(): Promise<TAPIResponse> {
   const response = await fetch('https://pq-leaflets.herokuapp.com/api/leaflets/filter');
   if (response.ok) {
     const jsonValue: TAPIResponse = await response.json();
@@ -11,7 +11,7 @@ async function getData() {
   }
 }
 
-async function getLeaflets() {
+async function getLeaflets():  Promise<TLeaflet[]> {
   const jsonValue = await getData();
   return jsonValue.data.leaflets;
 }
