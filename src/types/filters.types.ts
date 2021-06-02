@@ -1,1 +1,4 @@
-export type TFiltersInfo = {excludeExpired?: '0' | '1' };
+
+export type TFiltersInfo = {
+  excludeExpired?: '0' | '1';
+};
