@@ -17,7 +17,6 @@ async function getData(filtersInfo?: TFiltersInfo, sortArray?: TSortArray, value
 
   }
   url.search = new URLSearchParams(queryParams).toString();
-  console.log(url.toString())
   const response = await fetch(url.toString());
   if (response.ok) {
     const jsonValue: TAPIResponse = await response.json();

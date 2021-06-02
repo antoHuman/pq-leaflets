@@ -85,11 +85,11 @@ const PaginationCustom: FC<TPaginationCustomProps> = ({setCurrentPage, currentPa
   }
   return (
     <Pagination>
-      <Pagination.Prev onClick={goPrev} disabled={currentPage === 1} />
+      <Pagination.Prev onClick={goPrev} disabled={currentPage <= 1} />
       {hasPaginationFirst && <PaginationFirst goFirst={goFirst} currentPage={currentPage} />}
       {paginationArray}
       {hasPaginationLast && <PaginationLast goLast={goLast} currentPage={currentPage} pageAmount={pageAmount} />}
-      <Pagination.Next onClick={goNext} disabled={currentPage === pageAmount} />
+      <Pagination.Next onClick={goNext} disabled={currentPage >= pageAmount} />
     </Pagination>
   )
 }
