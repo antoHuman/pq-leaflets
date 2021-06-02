@@ -8,7 +8,7 @@ import {TFiltersInfo} from "./types/filters.types";
 
 function App() {
   const [leaflets, setLeaflets] = useState<TLeaflet[]>([]);
-  const [filtersInfo, setFiltersInfo] = useState<TFiltersInfo>({});
+  const [filtersInfo, setFiltersInfo] = useState<TFiltersInfo>({maxDistance: '0'});
   useEffect(()=>{
     const promise = getLeaflets(filtersInfo);
     promise.then((value => {
