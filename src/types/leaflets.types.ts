@@ -42,4 +42,5 @@ export type TAPIResponse = {
 
 export type TQueryParams = Partial<TFiltersInfo> & {
   sort?: string;
+  offset?: string;
 }

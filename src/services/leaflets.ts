@@ -3,7 +3,7 @@ import {TFiltersInfo} from "../types/filters.types";
 import {TSortArray} from "../types/sorting.types";
 
 
-async function getData(filtersInfo?: TFiltersInfo, sortArray?: TSortArray): Promise<TAPIResponse> {
+async function getData(filtersInfo?: TFiltersInfo, sortArray?: TSortArray, valueOffset?: number): Promise<TAPIResponse> {
   const url = new URL('https://pq-leaflets.herokuapp.com/api/leaflets/filter');
   let queryParams: TQueryParams = {};
   if (sortArray) {
@@ -11,6 +11,10 @@ async function getData(filtersInfo?: TFiltersInfo, sortArray?: TSortArray): Prom
   }
   if (filtersInfo) {
     queryParams = {...queryParams, ...filtersInfo};
+  }
+  if (valueOffset) {
+    queryParams = {...queryParams, offset: valueOffset.toString()};
+
   }
   url.search = new URLSearchParams(queryParams).toString();
   console.log(url.toString())
