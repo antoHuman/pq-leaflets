@@ -1,5 +1,6 @@
 import {FC} from "react";
-import {Pagination} from "react-bootstrap";
+import {Col, Pagination, Row} from "react-bootstrap";
+import useMedia from "../hooks/useMedia";
 
 type TSetCurrentPage = React.Dispatch<React.SetStateAction<number>>;
 const PaginationEmpty: FC = () => <Pagination.Item disabled><span>&nbsp;&nbsp;</span></Pagination.Item>;
@@ -24,12 +25,13 @@ const PaginationLast: FC<{goLast:  ()=>void, currentPage: number, pageAmount: nu
 const extraVisiblePages = 2; // ellipsis and first/last page
 
 const PaginationCustom: FC<TPaginationCustomProps> = ({setCurrentPage, currentPage, pageAmount}) => {
+  const isBreakpointSm = useMedia('(min-width: 575px)');
   const goNext = ()=> setCurrentPage(prevPage => ((prevPage < pageAmount) ? (prevPage + 1) : prevPage));
   const goPrev = ()=> setCurrentPage(prevPage => (prevPage > 1 ? (prevPage - 1) : prevPage));
   const goFirst = ()=> setCurrentPage(1);
   const goLast = ()=> setCurrentPage(pageAmount);
-  const nextVisiblePages = 2;
-  const prevVisiblePages = 2;
+  const nextVisiblePages = isBreakpointSm ? 2 : 1;
+  const prevVisiblePages = isBreakpointSm ? 2 : 1;
   const totalAmountOfVisible = 2* extraVisiblePages + nextVisiblePages + prevVisiblePages + 1; // considering also ellipsis, first and last page
   const paginationArray = [];
   let hasPaginationFirst = false;
@@ -84,13 +86,17 @@ const PaginationCustom: FC<TPaginationCustomProps> = ({setCurrentPage, currentPa
     }
   }
   return (
-    <Pagination>
-      <Pagination.Prev onClick={goPrev} disabled={currentPage <= 1} />
-      {hasPaginationFirst && <PaginationFirst goFirst={goFirst} currentPage={currentPage} />}
-      {paginationArray}
-      {hasPaginationLast && <PaginationLast goLast={goLast} currentPage={currentPage} pageAmount={pageAmount} />}
-      <Pagination.Next onClick={goNext} disabled={currentPage >= pageAmount} />
-    </Pagination>
+    <Row className="justify-content-center">
+      <Col xs={"auto"}>
+        <Pagination>
+          <Pagination.Prev onClick={goPrev} disabled={currentPage <= 1} />
+          {hasPaginationFirst && <PaginationFirst goFirst={goFirst} currentPage={currentPage} />}
+          {paginationArray}
+          {hasPaginationLast && <PaginationLast goLast={goLast} currentPage={currentPage} pageAmount={pageAmount} />}
+          <Pagination.Next onClick={goNext} disabled={currentPage >= pageAmount} />
+        </Pagination>
+      </Col>
+    </Row>
   )
 }
 

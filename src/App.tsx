@@ -1,5 +1,5 @@
 import Grid from "./components/Grid";
-import {Container} from "react-bootstrap";
+import {Accordion, Button, Container, Card} from "react-bootstrap";
 import Filters from "./components/Filters";
 import {useEffect, useState} from "react";
 import {TLeaflet} from "./types/leaflets.types";
@@ -29,9 +29,35 @@ function App() {
   return (
     <div className="App">
       <Container fluid>
-        <h1>Leaflets</h1>
-        <Filters setFiltersInfo={setFiltersInfo} filtersInfo={filtersInfo} />
-        <Sorting setSortArray={setSortArray} sortArray={sortArray} />
+        <h1 className="my-3">Leaflets</h1>
+
+        <Accordion className="mb-3">
+          <Card>
+            <Accordion.Toggle as={Button} variant="link" eventKey="0" className='p-0'>
+              <Card.Header>
+                Filters
+              </Card.Header>
+            </Accordion.Toggle>
+            <Accordion.Collapse eventKey="0">
+              <Card.Body>
+                <Filters setFiltersInfo={setFiltersInfo} filtersInfo={filtersInfo}/>
+              </Card.Body>
+            </Accordion.Collapse>
+          </Card>
+          <Card>
+            <Accordion.Toggle as={Button} variant="link" eventKey="1" className='p-0'>
+              <Card.Header>
+                Sorting
+              </Card.Header>
+            </Accordion.Toggle>
+            <Accordion.Collapse eventKey="1">
+              <Card.Body>
+                <Sorting setSortArray={setSortArray} sortArray={sortArray}/>
+              </Card.Body>
+            </Accordion.Collapse>
+          </Card>
+        </Accordion>
+
         <PaginationCustom setCurrentPage={setCurrentPage} currentPage={currentPage} pageAmount={pageAmount}/>
         <Grid leaflets={leaflets}/>
         <PaginationCustom setCurrentPage={setCurrentPage} currentPage={currentPage} pageAmount={pageAmount}/>

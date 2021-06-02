@@ -49,7 +49,6 @@ const Filters: FC<{setFiltersInfo: Dispatch<SetStateAction<TFiltersInfo>>, filte
 
   return (
     <div className="filters">
-      <h3>Filters</h3>
       <Form onSubmit={event => event.preventDefault()}>
         <Form.Group className="mr-4">
           <Form.Check type="checkbox" label="Exclude expired" checked={filterExcludeExpired(filtersInfo)} onChange={handleExcludeExpiredChange}/>
